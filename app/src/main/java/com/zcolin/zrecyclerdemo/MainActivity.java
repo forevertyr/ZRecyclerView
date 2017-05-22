@@ -13,11 +13,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.zcolin.gui.zrecyclerview.BaseRecyclerAdapter;
 import com.zcolin.gui.zrecyclerview.ZRecyclerView;
 import com.zcolin.zrecyclerdemo.adapter.ZRecyclerAdapter;
@@ -96,34 +94,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        recyclerView.setChangeScrollStateCallback(new ZRecyclerView.ChangeScrollStateCallback() {
-            @Override
-            public void change(int c) {
-                //0:表示停止滑动的状态 SCROLL_STATE_IDLE
-                //1:表示正在滚动，用户手指在屏幕上 SCROLL_STATE_TOUCH_SCROLL
-                //2:表示正在滑动。用户手指已经离开屏幕 SCROLL_STATE_FLING
-                switch (c) {
-                    case 2:
-                        Glide.with(MainActivity.this)
-                             .pauseRequests();
-                        Log.e("M", "暂停加载" + c);
-                        break;
-                    case 0:
-                        Glide.with(MainActivity.this)
-                             .resumeRequests();
-                        Log.e("M", "恢复加载" + c);
-                        break;
-                    case 1:
-                        Glide.with(MainActivity.this)
-                             .resumeRequests();
-                        Log.e("M", "恢复加载" + c);
-                        break;
-                }
-
-            }
-        });
-
         notifyData(new ArrayList<String>(), false);
         recyclerView.refreshWithPull();
         // recyclerView.refresh();//没有下拉刷新效果，直接刷新数据

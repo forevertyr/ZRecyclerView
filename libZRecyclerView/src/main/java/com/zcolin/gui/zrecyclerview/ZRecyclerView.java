@@ -816,7 +816,9 @@ public class ZRecyclerView extends FrameLayout {
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-            mChangeScrollStateCallback.change(newState);
+            if (mChangeScrollStateCallback != null) {
+                mChangeScrollStateCallback.change(newState);
+            }
         }
 
     }
