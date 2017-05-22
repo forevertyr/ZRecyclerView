@@ -18,7 +18,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
  * RecyclerView的ScrollListener的滚动监听代理
  */
 public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
-    private ZRecyclerView mPullLoadMoreRecyclerView;
+    private ZRecyclerView             mPullLoadMoreRecyclerView;
+    private ChangeScrollStateCallback mChangeScrollStateCallback;
 
     public RecyclerViewOnScroll(ZRecyclerView pullLoadMoreRecyclerView) {
         this.mPullLoadMoreRecyclerView = pullLoadMoreRecyclerView;
@@ -77,4 +78,19 @@ public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
         }
         return max;
     }
+
+    @Override
+    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        super.onScrollStateChanged(recyclerView, newState);
+        mChangeScrollStateCallback.change(newState);
+    }
+
+    public interface ChangeScrollStateCallback {
+        public void change(int c);
+    }
+
+    public void setChangeScrollStateCallback(ChangeScrollStateCallback mChangeScrollStateCallback) {
+        this.mChangeScrollStateCallback = mChangeScrollStateCallback;
+    }
+
 }
